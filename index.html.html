@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA com Senso Crítico | Guia para Programadores Iniciantes</title>
+<style>
+:root{
+  --senai:#1A4B9F; --senai-deep:#123B82; --accent:#EF5E31;
+  --dark:#172033; --ink:#20283A; --muted:#657086;
+  --paper:#F4F7FC; --white:#fff; --line:#D8E1EF; --ok:#16834b;
+  --warn:#B55A25; --blue:#1A4B9F;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(120deg,var(--senai-deep),var(--senai));color:white;padding:58px 20px 48px}
+.wrap{max-width:1080px;margin:auto}
+.brand{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.92}
+h1{font-size:clamp(2.2rem,6vw,4.7rem);line-height:.98;margin:14px 0 18px;max-width:850px}
+header p{max-width:720px;font-size:1.15rem;margin:0}
+nav{position:sticky;top:0;z-index:10;background:#17191df5;color:white;border-bottom:3px solid var(--accent)}
+nav .wrap{display:flex;gap:10px;overflow:auto;padding:10px 18px}
+nav a{color:white;text-decoration:none;white-space:nowrap;padding:7px 10px;border-radius:7px;font-size:.9rem}
+nav a:hover{background:var(--senai)}
+main{padding:34px 18px 70px}
+section{margin:0 0 34px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:0 5px 18px #1111}
+h2{font-size:1.8rem;margin:0 0 12px;color:var(--senai-deep)}
+h3{margin:22px 0 8px}
+.kicker{color:var(--accent);font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.1em}
+.rule{font-size:1.35rem;font-weight:800;border-left:6px solid var(--accent);padding:16px 20px;background:#F2F6FD;border-radius:0 10px 10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.bad,.good,.info{padding:18px;border-radius:12px}
+.bad{background:#fff1f1;border:1px solid #ffcaca}
+.good{background:#eefaf3;border:1px solid #bfe8cf}
+.info{background:#eef6fc;border:1px solid #c8dff1}
+.tag{display:inline-block;font-weight:800;font-size:.78rem;padding:4px 8px;border-radius:99px;margin-bottom:8px}
+.bad .tag{background:#ffdada;color:#8b0000}.good .tag{background:#ccefd9;color:#075f32}.info .tag{background:#d5eafb;color:#0c507e}
+pre{background:#17191d;color:#f7f7f7;padding:18px;border-radius:10px;overflow:auto;line-height:1.5}
+code{font-family:Consolas,monospace}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.check:last-child{border:0}
+input[type=checkbox],input[type=radio]{width:20px;height:20px;accent-color:var(--senai);flex:0 0 auto}
+label{cursor:pointer}
+.exercise{border-left:5px solid var(--accent);margin-top:20px}
+.answer{display:none;background:#f1faf5;border:1px solid #bfe4ce;border-radius:10px;padding:16px;margin-top:14px}
+button{border:0;background:var(--dark);color:white;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+button:hover{background:var(--accent)}
+.progressbox{background:white;padding:18px;border-radius:12px;border:1px solid var(--line);margin-bottom:28px}
+.progressbar{height:14px;background:#e5e7ea;border-radius:99px;overflow:hidden}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--senai),var(--accent));transition:.25s}
+.score{font-weight:800;margin-top:8px}
+.steps{counter-reset:step}
+.step{position:relative;padding:18px 18px 18px 64px;background:white;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+.step:before{counter-increment:step;content:counter(step);position:absolute;left:18px;top:17px;width:32px;height:32px;display:grid;place-items:center;background:var(--senai);color:white;font-weight:900;border-radius:50%;border:3px solid var(--accent)}
+textarea{width:100%;min-height:100px;border:1px solid #ccd1d7;border-radius:8px;padding:12px;font:inherit;resize:vertical}
+.small{font-size:.9rem;color:var(--muted)}
+footer{background:var(--senai-deep);color:white;padding:30px 20px}
+@media(max-width:600px){.card{padding:18px}h1{font-size:2.5rem}}
+@media print{nav,button{display:none!important}body{background:white}.card,.progressbox{box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+   <div class="brand"><span style="background:#fff;color:#1A4B9F;padding:7px 12px;border-radius:6px;font-size:1rem;letter-spacing:.04em">SENAI</span> <span style="margin-left:8px">RS • Tecnologia & Programação</span></div>
+   <h1>IA com Senso Crítico</h1>
+   <p>Um guia para usar Inteligência Artificial para <strong>aprender programação</strong> — e não apenas para copiar código.</p>
+ </div>
+</header>
+
+<nav>
+ <div class="wrap">
+  <a href="#regra">Regra de ouro</a><a href="#pense">Método P.E.N.S.E.</a>
+  <a href="#prompts">Prompts</a><a href="#lab">Laboratório</a>
+  <a href="#checklist">Checklist final</a>
+ </div>
+</nav>
+
+<main class="wrap">
+ <div class="progressbox">
+  <strong>Seu progresso no guia</strong>
+  <div class="progressbar"><div class="progress" id="progress"></div></div>
+  <div class="score" id="score">0 de 0 verificações concluídas</div>
+  <div class="small">As marcações ficam salvas neste navegador.</div>
+ </div>
+
+ <section id="regra" class="card">
+  <div class="kicker">01 • Mentalidade</div>
+  <h2>IA é copiloto, não piloto automático.</h2>
+  <p class="rule">Se você não consegue explicar o código que entregou, o trabalho ainda não terminou.</p>
+  <div class="grid">
+   <div class="bad"><span class="tag">❌ USO FRACO</span><p><strong>“Faça um sistema de cadastro em JavaScript para mim.”</strong></p><p>Copiar, executar e entregar sem investigar.</p></div>
+   <div class="good"><span class="tag">✓ USO INTELIGENTE</span><p><strong>“Tentei criar um cadastro. Explique por que minha função não adiciona o objeto ao array e me dê uma pista antes da solução.”</strong></p><p>Você continua sendo responsável pelo raciocínio.</p></div>
+  </div>
+  <h3>Antes de aceitar uma resposta da IA:</h3>
+  <div class="check"><input class="track" type="checkbox" id="c1"><label for="c1">Eu li o código inteiro, sem apenas clicar em “copiar”.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="c2"><label for="c2">Consigo dizer qual problema cada parte do código resolve.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="c3"><label for="c3">Testei o código e não estou confiando apenas na explicação da IA.</label></div>
+ </section>
+
+ <section id="pense" class="card">
+  <div class="kicker">02 • Processo</div><h2>Método P.E.N.S.E.</h2>
+  <div class="steps">
+   <div class="step"><strong>P — Pergunte bem.</strong><br>Informe linguagem, objetivo, o que você tentou e o erro encontrado.</div>
+   <div class="step"><strong>E — Entenda a resposta.</strong><br>Peça explicações. Procure palavras, funções ou conceitos que você não conhece.</div>
+   <div class="step"><strong>N — Navegue pelo código.</strong><br>Siga variáveis, condições, funções e fluxo de execução.</div>
+   <div class="step"><strong>S — Simule e teste.</strong><br>Execute. Troque entradas. Tente quebrar a solução. Observe os erros.</div>
+   <div class="step"><strong>E — Explique com suas palavras.</strong><br>Se você consegue explicar e modificar sem copiar tudo novamente, houve aprendizagem.</div>
+  </div>
+ </section>
+
+ <section id="prompts" class="card">
+  <div class="kicker">03 • Conversando com a IA</div><h2>Troque “faça por mim” por “me ajude a pensar”.</h2>
+  <div class="grid">
+   <div class="info"><span class="tag">DEBUG</span><p>“Não resolva imediatamente. Analise meu código, faça perguntas e dê uma pista sobre a origem do erro.”</p></div>
+   <div class="info"><span class="tag">APRENDER</span><p>“Explique este código linha por linha para um iniciante e depois faça 3 perguntas para verificar se entendi.”</p></div>
+   <div class="info"><span class="tag">REVISAR</span><p>“Revise meu código. Separe erros, riscos e melhorias. Não reescreva tudo sem explicar cada mudança.”</p></div>
+  </div>
+ </section>
+
+ <section id="lab">
+  <div class="card">
+   <div class="kicker">04 • Laboratório</div><h2>Agora você é o revisor da IA 🕵️</h2>
+   <p>Não abra o gabarito primeiro. Analise, marque o que verificou e escreva sua conclusão.</p>
+  </div>
+
+  <div class="card exercise">
+   <h3>Desafio 1 — O código parece correto?</h3>
+   <p>A IA afirmou que o código abaixo mostra apenas números maiores que 20:</p>
+<pre><code>let valores = [10, 15, 14, 50, 60, 70];
+
+let maiores = valores.map((v) => v > 20);
+
+console.log(maiores);</code></pre>
+   <div class="check"><input class="track" type="checkbox" id="d11"><label for="d11">Antes de executar, tentei prever a saída.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d12"><label for="d12">Identifiquei o que <code>map()</code> está retornando.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d13"><label for="d13">Consigo dizer qual método seria mais adequado.</label></div>
+   <p><strong>Minha análise:</strong></p><textarea data-save="a1" placeholder="Escreva o que você acha que está errado e como corrigiria..."></textarea>
+   <p><button onclick="toggleAnswer('ans1')">Conferir gabarito comentado</button></p>
+   <div class="answer" id="ans1"><strong>Gabarito:</strong> <code>map()</code> transforma cada item e, nesse caso, gera valores booleanos: <code>[false, false, false, true, true, true]</code>. Para selecionar elementos que atendem a uma condição, use <code>filter()</code>: <code>valores.filter(v => v > 20)</code>. O ponto importante não é decorar: <strong>map transforma; filter seleciona.</strong></div>
+  </div>
+
+  <div class="card exercise">
+   <h3>Desafio 2 — Funciona, mas é seguro?</h3>
+   <p>A IA sugeriu este login:</p>
+<pre><code>const usuario = "admin";
+const senha = "123456";
+
+if (usuario === "admin" && senha === "123456") {
+  console.log("Acesso liberado!");
+}</code></pre>
+   <div class="check"><input class="track" type="checkbox" id="d21"><label for="d21">Percebi onde a senha está armazenada.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d22"><label for="d22">Pensei no que aconteceria se esse código estivesse no navegador.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d23"><label for="d23">Entendi a diferença entre “funcionar” e “ser uma solução adequada”.</label></div>
+   <p><strong>Minha análise:</strong></p><textarea data-save="a2" placeholder="Que problema existe mesmo que o código execute?"></textarea>
+   <p><button onclick="toggleAnswer('ans2')">Conferir gabarito comentado</button></p>
+   <div class="answer" id="ans2"><strong>Gabarito:</strong> a comparação funciona como demonstração de lógica, mas não é um sistema de autenticação seguro. Credenciais não devem ficar expostas no código do front-end. Em uma aplicação real, autenticação envolve back-end, armazenamento apropriado de senhas (hash), transporte seguro e controles de acesso. <strong>Código que executa não é automaticamente código pronto para produção.</strong></div>
+  </div>
+
+  <div class="card exercise">
+   <h3>Desafio 3 — Teste casos que a IA esqueceu</h3>
+<pre><code>function dividir(a, b) {
+  return a / b;
+}
+
+console.log(dividir(10, 2));</code></pre>
+   <p>A resposta <code>5</code> está correta. Isso significa que a função está pronta?</p>
+   <div class="check"><input class="track" type="checkbox" id="d31"><label for="d31">Testei valores diferentes de 10 e 2.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d32"><label for="d32">Testei divisão por zero.</label></div>
+   <div class="check"><input class="track" type="checkbox" id="d33"><label for="d33">Pensei no que acontece com entradas que não são números.</label></div>
+   <p><strong>Minha análise:</strong></p><textarea data-save="a3" placeholder="Quais testes você faria? O que melhoraria?"></textarea>
+   <p><button onclick="toggleAnswer('ans3')">Conferir gabarito comentado</button></p>
+   <div class="answer" id="ans3"><strong>Gabarito:</strong> um único teste não comprova que a função lida bem com todos os casos. Vale testar zero, negativos, decimais e entradas inválidas. O comportamento desejado também precisa ser definido. <strong>Programar é pensar nos casos que não aparecem no exemplo perfeito.</strong></div>
+  </div>
+ </section>
+
+ <section id="checklist" class="card">
+  <div class="kicker">05 • Gabarito pessoal</div><h2>Posso dizer que entendi este código?</h2>
+  <p>Antes de entregar qualquer atividade feita com apoio de IA, marque:</p>
+  <div class="check"><input class="track" type="checkbox" id="f1"><label for="f1">Consigo explicar o objetivo do código sem olhar para a resposta da IA.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f2"><label for="f2">Sei explicar as principais variáveis, funções e estruturas utilizadas.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f3"><label for="f3">Executei e testei mais de um cenário.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f4"><label for="f4">Pesquisei ou questionei algo que não conhecia.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f5"><label for="f5">Consigo fazer pelo menos uma alteração no código sozinho.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f6"><label for="f6">Não coloquei senhas, chaves de API ou dados pessoais no prompt.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f7"><label for="f7">Se a IA estiver errada, tenho alguma forma de perceber ou verificar.</label></div>
+  <div class="check"><input class="track" type="checkbox" id="f8"><label for="f8"><strong>Eu conseguiria defender e explicar este código para o professor.</strong></label></div>
+  <p style="margin-top:20px"><button onclick="resetAll()">Limpar minhas marcações</button> <button onclick="window.print()">Imprimir / salvar em PDF</button></p>
+ </section>
+
+ <section class="card">
+  <div class="kicker">Mensagem final</div>
+  <h2>Não tente competir com a IA em velocidade.</h2>
+  <p class="rule">Use a IA para chegar mais longe — mas mantenha o raciocínio, a curiosidade e a responsabilidade com você.</p>
+ </section>
+</main>
+
+<footer><div class="wrap"><strong>Guia de Uso Consciente de IA na Programação</strong><br><span class="small" style="color:#ccc">Material didático • SENAI-RS</span></div></footer>
+
+<script>
+const checks=[...document.querySelectorAll('.track')];
+const texts=[...document.querySelectorAll('textarea[data-save]')];
+
+function update(){
+  const done=checks.filter(c=>c.checked).length;
+  document.getElementById('score').textContent=`${done} de ${checks.length} verificações concluídas`;
+  document.getElementById('progress').style.width=(done/checks.length*100)+'%';
+}
+checks.forEach(c=>{
+  c.checked=localStorage.getItem('ia_'+c.id)==='1';
+  c.addEventListener('change',()=>{localStorage.setItem('ia_'+c.id,c.checked?'1':'0');update();});
+});
+texts.forEach(t=>{
+  t.value=localStorage.getItem('ia_'+t.dataset.save)||'';
+  t.addEventListener('input',()=>localStorage.setItem('ia_'+t.dataset.save,t.value));
+});
+function toggleAnswer(id){
+ const el=document.getElementById(id);
+ el.style.display=el.style.display==='block'?'none':'block';
+}
+function resetAll(){
+ if(!confirm('Deseja apagar todas as marcações e respostas deste guia?')) return;
+ checks.forEach(c=>{c.checked=false;localStorage.removeItem('ia_'+c.id)});
+ texts.forEach(t=>{t.value='';localStorage.removeItem('ia_'+t.dataset.save)});
+ update();
+}
+update();
+</script>
+</body>
+</html>
